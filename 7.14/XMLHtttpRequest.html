@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajax</title>
+    <!--发起一个Ajax请求--创建XMLHttpRequest对象调用oppen,send方法-->
+    <!--使用一次性书剑追踪请求的进度--使用第二级的事件-->
+    <!--探测和处理请求--响应错误事件,或者try...catch-->
+    <!--发起跨域Ajax请求,设置服务器响应里Acess-Control-Alloe-Origin表头-->
+</head>
+<body>
+        <div>
+            <button>Apples</button>
+            <button>cherries</button>
+            <button>Bananas</button>
+        </div>
+        <div id="target">
+            Press a button
+        </div>
+        <script>
+
+                var buttons =document.getElementsByTagName("button");
+                for(var i=0;i<buttons.length;i++){
+                    buttons[i].onclick=handleButtonPress;
+                }
+                function handleButtonPress(e) {
+                    var httpRequest=new XMLHttpRequest();
+                    httpRequest.onreadystatechange=handleResponse;
+                    httpRequest.open("GET",e.target.innerHTML+".html");
+                    httpRequest.send();
+                }
+                function handleResponse(e) {
+                    if(e.target.readystatechange==XMLHttpRequest.DONE&&e.target.status==200){
+                        document.getElementById("target").innerHTML=e.target.responseText;
+                    }
+                }
+
+        </script>
+</body>
+</html>
